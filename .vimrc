@@ -4,6 +4,7 @@ set ttymouse=xterm2
 set mouse=a
 set number
 syntax on
+colorscheme monokai
 
 set encoding=utf-8  " set vim encoding to UTF-8
 set nocompatible    " the future is now, use vim defaults instead of vi ones
@@ -41,22 +42,11 @@ if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2"
   execute "set <F12>=\e[24;*~"
 endif
 
-
-" -- file type detection -------------------------------------------------------
-
-filetype on         " /!\ doesn't play well with compatible mode
-filetype plugin on  " trigger file type specific plugins
-filetype indent on  " indent based on file type syntax
-
 " -- display -------------------------------------------------------------------
 
 set title       " change the terminal title
 set lazyredraw  " do not redraw when executing macros
 set report=0    " always report changes
-
-set nolist                            " hide unprintable characters
-set noerrorbells      " shut up
-set visualbell t_vb=  " use visual bell instead of error bell
 
 " -- navigation ----------------------------------------------------------------
 
@@ -72,23 +62,11 @@ set showmode      " always show the current editing mode
 set nowrap        " don't wrap lines
 set linebreak     " yet if enabled break at word boundaries
 
-if has("multi_byte")  " if multi_byte is available,
-  set showbreak=↪     " use pretty Unicode marker
-else                  " otherwise,
-  set showbreak=>     " use ASCII character
-endif
-
 set showmatch     " briefly jumps the cursor to the matching brace on insert
 set matchtime=4   " blink matching braces for 0.4s
 
 set matchpairs+=<:>         " make < and > match
 runtime macros/matchit.vim  " enable extended % matching
-
-set virtualedit=insert    " allow the cursor to go everywhere (insert)
-set virtualedit+=onemore  " allow the cursor to go just past the end of line
-set virtualedit+=block    " allow the cursor to go everywhere (visual block)
-
-set backspace=indent,eol,start " allow backspacing over everything (insert)
 
 set expandtab     " insert spaces instead of tab, CTRL-V+Tab inserts a real tab
 set tabstop=2     " 1 tab == 2 spaces
@@ -111,3 +89,6 @@ set hlsearch  " highlight search terms
 set spelllang=en  " English only
 set nospell       " disabled by default
 
+" -- plugins -------------------
+execute pathogen#infect()
+let g:javascript_plugin_jsdoc = 1

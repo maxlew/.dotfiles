@@ -7,7 +7,7 @@ export EDITOR='vim'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="maxlew"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -55,7 +55,6 @@ ZSH_THEME="maxlew"
 plugins=(git osx git-flow git-extras npm node theme wakatime zsh-iterm-touchbar)
 
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -95,18 +94,20 @@ alias queue="ssh genero@162.209.7.140"
 
 alias gitgud="git reset HEAD^"
 alias gg="tmuxinator genero"
-alias servtra="ssh 35.197.167.175"
+alias servtra="ssh 35.224.147.60"
+alias wtrams="watch -tcn10 python ~/.dotfiles/trams.py"
+alias updateFirewall="~/updateFirewall.sh"
 
 # fuck apple
 ssh-add -A &> /dev/null
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/max/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/max/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/max/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/max/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/max/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/max/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/max/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/max/google-cloud-sdk/completion.zsh.inc'; fi
