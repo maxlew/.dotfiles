@@ -87,11 +87,6 @@ source $ZSH/oh-my-zsh.sh
 export PIP_REQUIRE_VIRTUALENV=true
 PIP_REQUIRE_VIRTUALENV=""
 
-alias devgen="ssh genero@dev.genero.com"
-alias prod1="ssh genero@prod1.genero.com"
-alias prod2="ssh genero@23.253.174.230"
-alias queue="ssh genero@162.209.7.140"
-
 alias gitgud="git reset HEAD^"
 alias gg="tmuxinator genero"
 alias servtra="ssh 35.224.147.60"
