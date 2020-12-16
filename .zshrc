@@ -52,7 +52,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx git-flow git-extras npm node theme wakatime zsh-iterm-touchbar)
+plugins=(git osx git-flow git-extras npm node zsh-autosuggestions deno)
 
 source $ZSH/oh-my-zsh.sh
 # User configuration
@@ -88,10 +88,8 @@ export PIP_REQUIRE_VIRTUALENV=true
 PIP_REQUIRE_VIRTUALENV=""
 
 alias gitgud="git reset HEAD^"
-alias gg="tmuxinator genero"
-alias servtra="ssh 35.224.147.60"
-alias wtrams="watch -tcn10 python ~/.dotfiles/trams.py"
-alias updateFirewall="~/updateFirewall.sh"
+alias servtra="ssh max@35.224.147.60"
+alias nope="sudo rm /Library/Managed\ Preferences/com.apple.iTunes.plist && sudo rm /Library/Managed\ Preferences/max.lewis/com.apple.iTunes.plist && sudo killall cfprefsd"
 
 # fuck apple
 ssh-add -A &> /dev/null
@@ -106,3 +104,74 @@ if [ -f '/Users/max/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/max/google-
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/max/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/max/google-cloud-sdk/completion.zsh.inc'; fi
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/max.lewis/develop/federated-profile/api/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/max.lewis/develop/federated-profile/api/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/max.lewis/develop/federated-profile/api/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/max.lewis/develop/federated-profile/api/node_modules/tabtab/.completions/sls.zsh
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+    if type __ltrim_colon_completions &>/dev/null; then
+      __ltrim_colon_completions "${words[cword]}"
+    fi
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###

@@ -21,9 +21,11 @@
 [core]
 	excludesfile = /Users/max/.gitignore_global
 [commit]
-	template = /Users/max/.stCommitMsg
+#	template = /Users/max/.stCommitMsg
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[http]
+	postBuffer = 157286400

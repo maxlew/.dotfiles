@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/max.lewis/.aws'
+let g:netrw_dirhist_2='/Users/max.lewis'
+let g:netrw_dirhist_3='/Users/max.lewis/develop'
+let g:netrw_dirhist_4='/Users/max.lewis/develop/aesop-web-ui'
+let g:netrw_dirhist_5='/Users/max.lewis/develop/aesop-web-ui/webpack'
+let g:netrw_dirhist_6='/Users/max.lewis'
+let g:netrw_dirhist_7='/Users/max.lewis/.vscode/extensions/monokai.theme-monokai-pro-vscode-1.1.15/js'
